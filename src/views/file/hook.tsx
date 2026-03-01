@@ -3,64 +3,7 @@ import { message } from "@/utils/message";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
-
-// 上传文件表单组件
-const UploadForm = {
-  props: {
-    formInline: {
-      type: Object,
-      default: () => ({})
-    }
-  },
-  setup(props, { emit }) {
-    const formRef = ref();
-    const fileList = ref([]);
-
-    const handleRemove = (uploadFile: any, uploadFiles: any) => {
-      console.log(uploadFile, uploadFiles);
-    };
-
-    const handlePreview = (uploadFile: any) => {
-      console.log(uploadFile);
-    };
-
-    const submitUpload = () => {
-      console.log("提交上传");
-      message("文件上传成功", { type: "success" });
-      emit("success");
-    };
-
-    const getRef = () => formRef.value;
-
-    return {
-      formRef,
-      fileList,
-      handleRemove,
-      handlePreview,
-      submitUpload,
-      getRef
-    };
-  },
-  template: `
-    <el-form ref="formRef" class="upload-form">
-      <el-upload
-        class="upload-demo"
-        action="#"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="fileList"
-        :auto-upload="false"
-      >
-        <el-button type="primary">点击上传</el-button>
-        <template #tip>
-          <div class="el-upload__tip">
-            只能上传jpg/png文件，且不超过500kb
-          </div>
-        </template>
-      </el-upload>
-    </el-form>
-  `
-};
+import FileForm from "./form/index.vue";
 
 export function useFile() {
   const form = reactive({
@@ -139,7 +82,19 @@ export function useFile() {
       width: "46%",
       draggable: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(UploadForm, { ref: formRef }),
+      contentRenderer: () =>
+        h(FileForm, {
+          ref: formRef,
+          formInline: {
+            title: "新增",
+            filename: "",
+            fileType: "pdf",
+            fileSize: "",
+            uploadTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+            remark: "",
+            fileList: []
+          }
+        }),
       beforeSure: done => {
         const FormRef = formRef.value?.getRef();
         if (FormRef) {
