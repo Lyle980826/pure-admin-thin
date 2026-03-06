@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objects>
+ <object id="1">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="1" type="0" radius="0" height="0" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="2" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="3" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="4" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="2">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="0" type="0" radius="2.61500001" height="10" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="1" type="0" radius="2.61500001" height="10" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="3" type="0" radius="10.3000002" height="20.6000004" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="3">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="1" type="0" radius="10.3000002" height="20.6000004" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="4">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="1" type="0" radius="0" height="0" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="2" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="3" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="4" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="5">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="0" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="6">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="0" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="7">
+  <cut_id id="684" check_sum="7" connectors_cnt="6"/>
+  <connectors>
+   <connector volume_id="0" type="1" radius="4.41499996" height="20" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="8">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+ <object id="9">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+ <object id="10">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+ <object id="11">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+ <object id="12">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+ <object id="13">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+  <connectors>
+   <connector volume_id="1" type="0" radius="0" height="0" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="2" type="0" radius="0" height="0" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="5" type="0" radius="0" height="0" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="6" type="0" radius="0" height="0" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="14">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+  <connectors>
+   <connector volume_id="1" type="0" radius="4.32000017" height="8.64000034" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="2" type="0" radius="4.32000017" height="8.64000034" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="5" type="0" radius="4.32000017" height="8.64000034" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+   <connector volume_id="6" type="0" radius="4.32000017" height="8.64000034" r_tolerance="0.100000001" h_tolerance="0.100000001"/>
+  </connectors>
+ </object>
+ <object id="15">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+ <object id="16">
+  <cut_id id="0" check_sum="1" connectors_cnt="0"/>
+ </object>
+</objects>

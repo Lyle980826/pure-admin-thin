@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model unit="millimeter" xml:lang="en-US" xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02" xmlns:BambuStudio="http://schemas.bambulab.com/package/2021" xmlns:p="http://schemas.microsoft.com/3dmanufacturing/production/2015/06" requiredextensions="p">
+ <metadata name="Application">BambuStudio-02.05.00.66</metadata>
+ <metadata name="BambuStudio:3mfVersion">1</metadata>
+ <metadata name="CopyRight">[]</metadata>
+ <metadata name="Copyright">[]</metadata>
+ <metadata name="CreationDate">2026-03-04</metadata>
+ <metadata name="Description">&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;野蛮人佩剑 &amp;amp; 壁挂架 (部落冲突)&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;amp;nbsp;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;通过这个野蛮人佩剑和壁挂架的精细3D模型，将游戏中最具辨识度的视觉元素之一带入现实世界——这是您在《部落冲突》中打开链接时总能看到的标志性展示。简洁、大胆且一眼即识，这件作品是任何部落冲突主题布置的完美墙面装饰。&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;amp;nbsp;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;组装：&amp;lt;/strong&amp;gt;&amp;lt;br&amp;gt;建议使用热熔胶将附件粘合在一起&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;amp;nbsp;&amp;lt;/p&amp;gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;耗材颜色建议：&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;Bambu Lab 基础金色 &amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Bambu Lab 哑光深棕色&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Bambu Lab 哑光焦糖色&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Bambu Lab 哑光炭灰色 &amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Bambu Lab 哑光烟灰色&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;额外信息：&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;是英雄装备展示或宝箱收藏的绝佳搭配，捕捉了《部落冲突》体验中微妙而标志性的一部分&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;⚠️ &amp;lt;strong&amp;gt;重要提示：&amp;lt;/strong&amp;gt;此模型仅供个人使用。根据Supercell的服务条款，严禁销售《部落冲突》内容的3D打印品&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;</metadata>
+ <metadata name="DesignModelId">CN201e6783e0e883</metadata>
+ <metadata name="DesignProfileId">120187263</metadata>
+ <metadata name="DesignRegion">CN</metadata>
+ <metadata name="Designer">CarbonFin</metadata>
+ <metadata name="DesignerCover">bca4004c22ebb286.png</metadata>
+ <metadata name="DesignerUserId">165432097</metadata>
+ <metadata name="License">Standard Digital File License</metadata>
+ <metadata name="MakerLab">Image to 3D v2</metadata>
+ <metadata name="MakerLabFileId">175955384282937960</metadata>
+ <metadata name="MakerLabRegion">US</metadata>
+ <metadata name="ModificationDate">2026-03-04</metadata>
+ <metadata name="Origin">profile</metadata>
+ <metadata name="ProfileCover">bca4004c22ebb286.png</metadata>
+ <metadata name="ProfileDescription"></metadata>
+ <metadata name="ProfileTitle">0.2mm 层高, 2 层墙, 15% 填充</metadata>
+ <metadata name="ProfileUserId">165432097</metadata>
+ <metadata name="ProfileUserName">CarbonFin</metadata>
+ <metadata name="Thumbnail_Middle">/Metadata/plate_1.png</metadata>
+ <metadata name="Thumbnail_Small">/Metadata/plate_1_small.png</metadata>
+ <metadata name="Title">野蛮人佩剑 &amp;amp; 壁挂架 (部落冲突)</metadata>
+ <resources>
+ </resources>
+ <build/>
+</model>

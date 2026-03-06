@@ -1,17 +1,16 @@
 import dayjs from "dayjs";
 import { message } from "@/utils/message";
-import { addDialog } from "@/components/ReDialog";
-import { reactive, ref, onMounted, h } from "vue";
+import { reactive, ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import type { PaginationProps } from "@pureadmin/table";
-import FileForm from "./form/index.vue";
 
 export function useFile() {
+  const router = useRouter();
   const form = reactive({
     filename: ""
   });
   const dataList = ref([]);
   const loading = ref(true);
-  const formRef = ref();
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -77,41 +76,9 @@ export function useFile() {
   }
 
   function openUploadDialog() {
-    addDialog({
-      title: "上传文件",
-      width: "46%",
-      draggable: true,
-      closeOnClickModal: false,
-      contentRenderer: () =>
-        h(FileForm, {
-          ref: formRef,
-          formInline: {
-            title: "新增",
-            filename: "",
-            fileType: "pdf",
-            fileSize: "",
-            uploadTime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-            remark: "",
-            fileList: []
-          }
-        }),
-      beforeSure: done => {
-        const FormRef = formRef.value?.getRef();
-        if (FormRef) {
-          FormRef.validate(valid => {
-            if (valid) {
-              message("文件上传成功", { type: "success" });
-              done(); // 关闭弹框
-              onSearch(); // 刷新表格数据
-            }
-          });
-        } else {
-          // 简单处理，直接关闭弹框
-          message("文件上传成功", { type: "success" });
-          done();
-          onSearch();
-        }
-      }
+    // 跳转到上传页面
+    router.push({
+      path: "/file/upload"
     });
   }
 
