@@ -1,1 +1,8 @@
-{"plate_1":{"sequence":[]},"plate_2":{"sequence":[2,3]},"plate_3":{"sequence":[]},"plate_4":{"sequence":[]},"plate_5":{"sequence":[]},"plate_6":{"sequence":[]}}
+{
+  "plate_1": { "sequence": [] },
+  "plate_2": { "sequence": [2, 3] },
+  "plate_3": { "sequence": [] },
+  "plate_4": { "sequence": [] },
+  "plate_5": { "sequence": [] },
+  "plate_6": { "sequence": [] }
+}

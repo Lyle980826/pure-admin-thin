@@ -6,11 +6,11 @@ export function useFileUpload() {
   const newFormInline = ref({
     title: "新增",
     filename: "",
-    fileType: "pdf",
+    fileType: "3mf",
     fileSize: "",
     uploadTime: "",
     remark: "",
-    fileList: []
+    fileList: [] as any[]
   });
 
   const analysisResult = ref<AnalysisResult>({
@@ -40,6 +40,29 @@ export function useFileUpload() {
     const sizes = ["B", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  }
+
+  function handleExceed(files: File[], _fileList: any[]) {
+    // 当超出文件数量限制时，用新文件替换旧文件
+    // 将原生 File 对象转换为 Element Plus Upload 组件期望的格式
+    const formattedFiles = files.map((file: File) => ({
+      name: file.name,
+      size: file.size,
+      raw: file,
+      status: "ready",
+      uid: Date.now() + Math.random().toString(36).substr(2, 9)
+    })) as any[];
+    newFormInline.value.fileList = formattedFiles;
+    if (formattedFiles.length > 0) {
+      const file = formattedFiles[0];
+      newFormInline.value.filename = file.name;
+      newFormInline.value.fileSize = formatFileSize(file.size);
+      newFormInline.value.fileType = "3mf";
+      newFormInline.value.uploadTime = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+    }
   }
 
   async function handleFileChange(_file: any, fileList: any[]) {
@@ -92,21 +115,9 @@ export function useFileUpload() {
     activeStep.value = 2;
   }
 
-  function backToAnalysis() {
-    // 从完成页面返回分析页面
-    activeStep.value = 1;
-  }
-
   function backToUpload() {
     // 从分析页面返回上传页面
     activeStep.value = 0;
-  }
-
-  function handleObjectClick(object: any) {
-    // 这里可以添加物体详情的处理逻辑
-    console.log("点击了物体:", object);
-    // 例如：显示物体的详细信息弹窗
-    // 由于当前数据结构中没有物体的详细信息，暂时只打印日志
   }
 
   function getRef() {
@@ -124,11 +135,10 @@ export function useFileUpload() {
     currentPlate,
     formatFileSize,
     handleFileChange,
+    handleExceed,
     startAnalysis,
     completeUpload,
-    backToAnalysis,
     backToUpload,
-    handleObjectClick,
     getRef
   };
 }

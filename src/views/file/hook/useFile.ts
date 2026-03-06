@@ -1,11 +1,9 @@
 import dayjs from "dayjs";
 import { message } from "@/utils/message";
 import { reactive, ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import type { PaginationProps } from "@pureadmin/table";
 
 export function useFile() {
-  const router = useRouter();
   const form = reactive({
     filename: ""
   });
@@ -75,13 +73,6 @@ export function useFile() {
     onSearch();
   }
 
-  function openUploadDialog() {
-    // 跳转到上传页面
-    router.push({
-      path: "/file/upload"
-    });
-  }
-
   async function onSearch() {
     loading.value = true;
     // 模拟API调用
@@ -136,7 +127,6 @@ export function useFile() {
     resetForm,
     downloadFile,
     deleteFile,
-    openUploadDialog,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange

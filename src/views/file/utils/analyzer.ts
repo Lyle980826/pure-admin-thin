@@ -15,7 +15,7 @@ export interface PlateInfo {
   warnings?: WarningInfo[];
 }
 
-// 物体信息接口
+// 对象信息接口
 export interface ObjectInfo {
   identify_id: string;
   name: string;
@@ -430,6 +430,6 @@ function calculateTotalStats(result: AnalysisResult): void {
 
   console.log("总打印时间:", totalTime, "秒");
   console.log("总耗材使用量:", totalWeight, "克");
-  console.log("总物体数量:", totalObjects, "个");
+  console.log("总对象数量:", totalObjects, "个");
   console.log("总分盘数量:", result.plates.length, "个");
 }

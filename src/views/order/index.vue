@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { useOrder } from "./hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import { useOrderStoreHook } from "@/store/modules/order";
 
 import View from "~icons/ep/view";
+import Edit from "~icons/ep/edit";
 import Refresh from "~icons/ep/refresh";
 import AddFill from "~icons/ri/add-circle-line";
-import Edit from "~icons/ep/edit";
 
 defineOptions({
   name: "Order"
 });
 
 const formRef = ref();
+const orderStore = useOrderStoreHook();
 const {
   form,
   loading,
@@ -29,6 +31,15 @@ const {
   handleCurrentChange,
   handleSelectionChange
 } = useOrder();
+
+onMounted(() => {
+  if (orderStore.getShouldCreateOrder) {
+    orderStore.resetShouldCreateOrder();
+    nextTick(() => {
+      openCreateDialog();
+    });
+  }
+});
 </script>
 
 <template>
