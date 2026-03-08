@@ -2,6 +2,11 @@ import dayjs from "dayjs";
 import { message } from "@/utils/message";
 import { reactive, ref, onMounted } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
+import {
+  getFileList,
+  deleteFile as deleteFileApi,
+  downloadFile as downloadFileApi
+} from "@/api/file";
 
 export function useFile() {
   const form = reactive({
@@ -46,6 +51,7 @@ export function useFile() {
     {
       label: "操作",
       fixed: "right",
+      minWidth: 120,
       slot: "operation"
     }
   ];
@@ -62,49 +68,42 @@ export function useFile() {
     console.log("handleSelectionChange", val);
   }
 
-  function downloadFile(id: number) {
-    console.log("下载文件，ID:", id);
-    message("文件下载成功", { type: "success" });
+  async function downloadFile(id: number) {
+    try {
+      await downloadFileApi({ id });
+      message("文件下载成功", { type: "success" });
+    } catch {
+      message("文件下载失败", { type: "error" });
+    }
   }
 
-  function deleteFile(id: number) {
-    console.log("删除文件，ID:", id);
-    message("文件删除成功", { type: "success" });
-    onSearch();
+  async function deleteFile(id: number) {
+    try {
+      await deleteFileApi({ id });
+      message("文件删除成功", { type: "success" });
+      onSearch();
+    } catch {
+      message("文件删除失败", { type: "error" });
+    }
   }
 
   async function onSearch() {
     loading.value = true;
-    // 模拟API调用
-    setTimeout(() => {
-      dataList.value = [
-        {
-          id: 1,
-          name: "文档1.pdf",
-          size: "1.2MB",
-          type: "PDF",
-          uploadTime: "2024-01-01"
-        },
-        {
-          id: 2,
-          name: "图片1.jpg",
-          size: "2.5MB",
-          type: "JPG",
-          uploadTime: "2024-01-02"
-        },
-        {
-          id: 3,
-          name: "表格1.xlsx",
-          size: "3.8MB",
-          type: "Excel",
-          uploadTime: "2024-01-03"
-        }
-      ];
-      pagination.total = 3;
-      pagination.pageSize = 10;
-      pagination.currentPage = 1;
+    try {
+      const res = await getFileList({
+        filename: form.filename,
+        pageNum: pagination.currentPage,
+        pageSize: pagination.pageSize
+      });
+      if (res.success) {
+        dataList.value = res.data.list;
+        pagination.total = res.data.total;
+      }
+    } catch {
+      message("获取文件列表失败", { type: "error" });
+    } finally {
       loading.value = false;
-    }, 500);
+    }
   }
 
   const resetForm = formEl => {

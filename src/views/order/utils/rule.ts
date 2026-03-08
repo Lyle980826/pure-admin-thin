@@ -7,6 +7,7 @@ export const formRules = reactive(<FormRules>{
   orderType: [{ required: true, message: "请选择订单类型", trigger: "change" }],
   amount: [
     {
+      required: true,
       validator: (rule, value, callback) => {
         if (value === "") {
           callback(new Error("订单金额为必填项"));

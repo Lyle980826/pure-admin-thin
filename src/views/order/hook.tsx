@@ -5,10 +5,18 @@ import { message } from "@/utils/message";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
+import { orderTypeMap } from "./utils/constants";
+import {
+  getOrderList,
+  getOrderDetail,
+  createOrder,
+  updateOrder
+} from "@/api/order";
 
 export function useOrder() {
   const form = reactive({
-    username: ""
+    username: "",
+    status: ""
   });
   const dataList = ref([]);
   const loading = ref(true);
@@ -34,7 +42,7 @@ export function useOrder() {
       label: "订单类型",
       prop: "orderType",
       minWidth: 100,
-      formatter: ({ orderType }) => (orderType === "custom" ? "定制" : "代打")
+      formatter: ({ orderType }) => orderTypeMap[orderType] || orderType
     },
     {
       label: "订单金额",
@@ -61,40 +69,29 @@ export function useOrder() {
     }
   ];
 
-  function handleSizeChange(val: number) {
-    console.log(`${val} items per page`);
-  }
+  function handleSizeChange(_val: number) {}
 
-  function handleCurrentChange(val: number) {
-    console.log(`current page: ${val}`);
-  }
+  function handleCurrentChange(_val: number) {}
 
-  function handleSelectionChange(val) {
-    console.log("handleSelectionChange", val);
-  }
+  function handleSelectionChange(_val) {}
 
-  function onDetail(row) {
-    // 模拟API调用获取订单详情
-    setTimeout(() => {
-      const orderDetail = {
-        ...row,
-        remark: "测试订单",
-        address: "北京市朝阳区",
-        phone: "13800138000",
-        paymentMethod: "支付宝",
-        shippingMethod: "快递",
-        orderType: row.orderType || "custom"
-      };
-      addDialog({
-        title: "订单详情",
-        fullscreen: true,
-        hideFooter: true,
-        contentRenderer: () => Detail,
-        props: {
-          data: [orderDetail]
-        }
-      });
-    }, 300);
+  async function onDetail(row: any) {
+    try {
+      const res = await getOrderDetail({ id: row.id });
+      if (res.success && res.data) {
+        addDialog({
+          title: "订单详情",
+          fullscreen: true,
+          hideFooter: true,
+          contentRenderer: () => Detail,
+          props: {
+            data: [res.data]
+          }
+        });
+      }
+    } catch {
+      message("获取订单详情失败", { type: "error" });
+    }
   }
 
   function openCreateDialog() {
@@ -117,35 +114,34 @@ export function useOrder() {
       fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(OrderForm, { ref: formRef, formInline: null }),
-      beforeSure: done => {
+      beforeSure: async (done: any) => {
         const FormRef = formRef.value?.getRef();
         if (FormRef) {
-          FormRef.validate(valid => {
+          FormRef.validate(async (valid: boolean) => {
             if (valid) {
-              // 模拟API调用创建订单
-              setTimeout(() => {
+              try {
+                const formData = FormRef.getFormData?.();
+                await createOrder(formData);
                 message("订单创建成功", { type: "success" });
-                done(); // 关闭弹框
-                onSearch(); // 刷新表格数据
-              }, 500);
+                done();
+                onSearch();
+              } catch {
+                message("订单创建失败", { type: "error" });
+              }
             }
           });
-        } else {
-          // 简单处理，直接关闭弹框
-          message("订单创建成功", { type: "success" });
-          done();
-          onSearch();
         }
       }
     });
   }
 
-  function openEditDialog(row) {
+  function openEditDialog(row: any) {
     addDialog({
       title: "编辑订单",
       props: {
         formInline: {
           title: "编辑",
+          id: row.id,
           customer: row.customer,
           amount: row.amount,
           orderType: row.orderType || "custom",
@@ -160,24 +156,22 @@ export function useOrder() {
       fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(OrderForm, { ref: formRef, formInline: null }),
-      beforeSure: done => {
+      beforeSure: async (done: any) => {
         const FormRef = formRef.value?.getRef();
         if (FormRef) {
-          FormRef.validate(valid => {
+          FormRef.validate(async (valid: boolean) => {
             if (valid) {
-              // 模拟API调用更新订单
-              setTimeout(() => {
+              try {
+                const formData = FormRef.getFormData?.();
+                await updateOrder({ id: row.id, ...formData });
                 message("订单编辑成功", { type: "success" });
-                done(); // 关闭弹框
-                onSearch(); // 刷新表格数据
-              }, 500);
+                done();
+                onSearch();
+              } catch {
+                message("订单编辑失败", { type: "error" });
+              }
             }
           });
-        } else {
-          // 简单处理，直接关闭弹框
-          message("订单编辑成功", { type: "success" });
-          done();
-          onSearch();
         }
       }
     });
@@ -185,58 +179,25 @@ export function useOrder() {
 
   async function onSearch() {
     loading.value = true;
-    // 模拟API调用
-    setTimeout(() => {
-      dataList.value = [
-        {
-          id: 1,
-          customer: "张三",
-          amount: 1000,
-          status: "已完成",
-          orderType: "custom",
-          createTime: "2024-01-01"
-        },
-        {
-          id: 2,
-          customer: "李四",
-          amount: 2000,
-          status: "处理中",
-          orderType: "print",
-          createTime: "2024-01-02"
-        },
-        {
-          id: 3,
-          customer: "王五",
-          amount: 3000,
-          status: "已付款",
-          orderType: "custom",
-          createTime: "2024-01-03"
-        },
-        {
-          id: 4,
-          customer: "赵六",
-          amount: 1500,
-          status: "待确认",
-          orderType: "custom",
-          createTime: "2024-01-04"
-        },
-        {
-          id: 5,
-          customer: "孙七",
-          amount: 2500,
-          status: "生产中",
-          orderType: "print",
-          createTime: "2024-01-05"
-        }
-      ];
-      pagination.total = 5;
-      pagination.pageSize = 10;
-      pagination.currentPage = 1;
+    try {
+      const res = await getOrderList({
+        username: form.username,
+        status: form.status,
+        pageNum: pagination.currentPage,
+        pageSize: pagination.pageSize
+      });
+      if (res.success) {
+        dataList.value = res.data.list;
+        pagination.total = res.data.total;
+      }
+    } catch {
+      message("获取订单列表失败", { type: "error" });
+    } finally {
       loading.value = false;
-    }, 500);
+    }
   }
 
-  const resetForm = formEl => {
+  const resetForm = (formEl: any) => {
     if (!formEl) return;
     formEl.resetFields();
     onSearch();

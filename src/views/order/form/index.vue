@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import ReCol from "@/components/ReCol";
 import { formRules } from "../utils/rule";
 import { FormProps } from "../utils/types";
+import {
+  orderTypeOptions,
+  shippingMethods,
+  statusOptions
+} from "../utils/constants";
+import { getFileList } from "@/api/file";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
@@ -17,34 +23,34 @@ const props = withDefaults(defineProps<FormProps>(), {
   })
 });
 
-const fileOptions = [
-  { label: "文档1.pdf", value: "1" },
-  { label: "图片1.jpg", value: "2" },
-  { label: "表格1.xlsx", value: "3" }
-];
-
-const shippingMethods = [
-  { label: "快递", value: "快递" },
-  { label: "自提", value: "自提" }
-];
-
-const statusOptions = [
-  { label: "已付款", value: "已付款" },
-  { label: "处理中", value: "处理中" },
-  { label: "待确认", value: "待确认" },
-  { label: "生产中", value: "生产中" },
-  { label: "已完成", value: "已完成" },
-  { label: "已取消", value: "已取消" }
-];
-
 const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
+const fileOptions = ref<any[]>([]);
+
+// 加载文件列表
+onMounted(async () => {
+  try {
+    const res = await getFileList();
+    if (res.success) {
+      fileOptions.value = res.data.list.map((file: any) => ({
+        label: file.name,
+        value: file.id
+      }));
+    }
+  } catch (error) {
+    console.error("获取文件列表失败:", error);
+  }
+});
 
 function getRef() {
   return ruleFormRef.value;
 }
 
-defineExpose({ getRef });
+function getFormData() {
+  return { ...newFormInline.value };
+}
+
+defineExpose({ getRef, getFormData });
 </script>
 
 <template>
@@ -71,8 +77,12 @@ defineExpose({ getRef });
             placeholder="请选择订单类型"
             class="w-full"
           >
-            <el-option label="定制订单" value="custom" />
-            <el-option label="代打订单" value="print" />
+            <el-option
+              v-for="(item, index) in orderTypeOptions"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            />
           </el-select>
         </el-form-item>
       </re-col>

@@ -36,7 +36,7 @@ export function useFilament() {
     {
       label: "颜色",
       prop: "color",
-      minWidth: 100,
+      width: 80,
       slot: "color"
     },
     {

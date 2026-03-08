@@ -4,6 +4,7 @@ import { useOrder } from "./hook";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { useOrderStoreHook } from "@/store/modules/order";
+import { statusOptions } from "./utils/constants";
 
 import View from "~icons/ep/view";
 import Edit from "~icons/ep/edit";
@@ -57,6 +58,21 @@ onMounted(() => {
           clearable
           class="w-[180px]!"
         />
+      </el-form-item>
+      <el-form-item label="订单状态" prop="status">
+        <el-select
+          v-model="form.status"
+          placeholder="请选择订单状态"
+          clearable
+          class="w-[180px]!"
+        >
+          <el-option
+            v-for="(item, index) in statusOptions"
+            :key="index"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -130,19 +146,3 @@ onMounted(() => {
     </PureTableBar>
   </div>
 </template>
-
-<style lang="scss" scoped>
-:deep(.el-dropdown-menu__item i) {
-  margin: 0;
-}
-
-.main-content {
-  margin: 24px 24px 0 !important;
-}
-
-.search-form {
-  :deep(.el-form-item) {
-    margin-bottom: 12px;
-  }
-}
-</style>

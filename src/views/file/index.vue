@@ -3,12 +3,14 @@ import { ref } from "vue";
 import { useFile } from "./hook/useFile";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import FileForm from "./upload/index.vue";
+import FileForm from "./upload.vue";
+import FileDetail from "./detail.vue";
 
 import Download from "~icons/ep/download";
 import Delete from "~icons/ep/delete";
 import Refresh from "~icons/ep/refresh";
 import AddFill from "~icons/ri/add-circle-line";
+import View from "~icons/ep/view";
 import Back from "~icons/ep/back";
 
 defineOptions({
@@ -16,6 +18,8 @@ defineOptions({
 });
 
 const showUploadForm = ref(false);
+const showDetail = ref(false);
+const currentFileId = ref<number | null>(null);
 const formRef = ref();
 const {
   form,
@@ -40,12 +44,22 @@ function closeUploadForm() {
   showUploadForm.value = false;
   onSearch();
 }
+
+function openDetail(id: number) {
+  currentFileId.value = id;
+  showDetail.value = true;
+}
+
+function closeDetail() {
+  showDetail.value = false;
+  currentFileId.value = null;
+}
 </script>
 
 <template>
   <div class="main">
     <!-- 文件列表 -->
-    <div v-if="!showUploadForm">
+    <div v-if="!showUploadForm && !showDetail">
       <el-form
         ref="formRef"
         :inline="true"
@@ -111,6 +125,16 @@ function closeUploadForm() {
                 link
                 type="primary"
                 :size="size"
+                :icon="useRenderIcon(View)"
+                @click="openDetail(row.id)"
+              >
+                详情
+              </el-button>
+              <el-button
+                class="reset-margin"
+                link
+                type="primary"
+                :size="size"
                 :icon="useRenderIcon(Download)"
                 @click="downloadFile(row.id)"
               >
@@ -139,13 +163,22 @@ function closeUploadForm() {
     </div>
 
     <!-- 上传表单 -->
-    <div v-else class="upload-container">
+    <div v-else-if="showUploadForm" class="upload-container">
       <div class="upload-header">
         <el-button :icon="useRenderIcon(Back)" @click="closeUploadForm">
           返回文件列表
         </el-button>
       </div>
       <FileForm @upload-complete="closeUploadForm" />
+    </div>
+
+    <!-- 文件详情 -->
+    <div v-else class="detail-container">
+      <FileDetail
+        v-if="currentFileId"
+        :id="currentFileId"
+        @back="closeDetail"
+      />
     </div>
   </div>
 </template>
@@ -159,5 +192,9 @@ function closeUploadForm() {
 
 .upload-header {
   margin-bottom: 20px;
+}
+
+.detail-container {
+  padding: 20px;
 }
 </style>
