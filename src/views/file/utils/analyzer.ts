@@ -28,8 +28,8 @@ export interface FilamentInfo {
   tray_info_idx: string;
   type: string;
   color: string;
-  used_m: string;
-  used_g: string;
+  used_m: number;
+  used_g: number;
 }
 
 // 警告信息接口
@@ -361,16 +361,15 @@ function parseSliceInfoConfig(xmlContent: string): PlateInfo[] {
           tray_info_idx: filament.getAttribute("tray_info_idx") || "",
           type: filament.getAttribute("type") || "",
           color: filament.getAttribute("color") || "",
-          used_m: filament.getAttribute("used_m") || "",
-          used_g: filament.getAttribute("used_g") || ""
+          used_m: parseFloat(filament.getAttribute("used_m") || "0"),
+          used_g: parseFloat(filament.getAttribute("used_g") || "0")
         });
       });
 
       // 计算分盘耗材总重量
       let totalFilamentWeight = 0;
       filaments.forEach(filament => {
-        const weight = parseFloat(filament.used_g || "0");
-        totalFilamentWeight += weight;
+        totalFilamentWeight += filament.used_g || 0;
       });
 
       // 提取warning信息

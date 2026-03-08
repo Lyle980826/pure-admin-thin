@@ -163,22 +163,33 @@ function closeDetail() {
     </div>
 
     <!-- 上传表单 -->
-    <div v-else-if="showUploadForm" class="upload-container">
-      <div class="upload-header">
-        <el-button :icon="useRenderIcon(Back)" @click="closeUploadForm">
-          返回文件列表
-        </el-button>
-      </div>
+    <div v-else-if="showUploadForm" class="upload-container pb-20">
       <FileForm @upload-complete="closeUploadForm" />
     </div>
 
     <!-- 文件详情 -->
-    <div v-else class="detail-container">
+    <div v-else class="detail-container pb-20">
       <FileDetail
         v-if="currentFileId"
         :id="currentFileId"
         @back="closeDetail"
       />
+    </div>
+
+    <!-- 悬浮返回按钮 - 只在上传和详情时显示 -->
+    <div
+      v-if="showUploadForm || showDetail"
+      class="fixed bottom-0 left-0 right-0 z-50 bg-white p-4"
+    >
+      <div class="flex justify-end">
+        <el-button
+          :icon="useRenderIcon(Back)"
+          type="primary"
+          @click="showUploadForm ? closeUploadForm() : closeDetail()"
+        >
+          返回文件列表
+        </el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -188,10 +199,6 @@ function closeDetail() {
   :deep(.el-form-item) {
     margin-bottom: 12px;
   }
-}
-
-.upload-header {
-  margin-bottom: 20px;
 }
 
 .detail-container {

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from "vue";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { PureDescriptions } from "@pureadmin/descriptions";
-import Back from "~icons/ep/back";
 import FileAnalysisResult from "./components/FileAnalysisResult.vue";
 import * as FileApi from "@/api/file";
 
@@ -66,12 +64,6 @@ onMounted(() => {
 
 <template>
   <div class="p-5 bg-white rounded-lg shadow-md">
-    <div class="mb-5">
-      <el-button :icon="useRenderIcon(Back)" @click="goBack">
-        返回文件列表
-      </el-button>
-    </div>
-
     <el-skeleton :loading="loading" animated>
       <template #template>
         <el-skeleton :rows="10" />
@@ -80,7 +72,6 @@ onMounted(() => {
         <div v-if="fileInfo">
           <!-- 文件基本信息 -->
           <div class="mb-5">
-            <h3 class="mb-4 text-lg font-bold">文件基本信息</h3>
             <PureDescriptions
               border
               :data="[fileInfo]"
@@ -91,7 +82,6 @@ onMounted(() => {
 
           <!-- 文件分析结果 -->
           <div>
-            <h3 class="mb-4 text-lg font-bold">文件分析结果</h3>
             <FileAnalysisResult :analysisResult="analysisResult" />
           </div>
         </div>

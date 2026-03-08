@@ -208,12 +208,14 @@ export default defineFakeRoute([
                 filaments: [
                   {
                     id: "1",
+                    tray_info_idx: "0",
                     type: "PLA",
-                    color: "#FF0000",
+                    color: "红色",
+                    used_m: 0,
                     used_g:
                       file.totalPlates > 0
-                        ? (file.totalWeight / file.totalPlates).toString()
-                        : "0"
+                        ? file.totalWeight / file.totalPlates
+                        : 0
                   }
                 ],
                 objects: Array.from({ length: 5 }, (_, j) => ({

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import ReCol from "@/components/ReCol";
+import FilamentInfo from "@/components/FilamentInfo/index.vue";
 import type { AnalysisResult } from "../utils/analyzer";
 
 const props = defineProps<{
@@ -170,21 +171,15 @@ const currentPlate = computed(() => {
                     currentPlate.filaments &&
                     currentPlate.filaments.length > 0
                   "
-                  class="flex flex-wrap"
+                  class="flex flex-wrap gap-2"
                 >
-                  <div
+                  <FilamentInfo
                     v-for="filament in currentPlate.filaments"
                     :key="filament.id"
-                    class="flex items-center px-3 py-1 mr-2 bg-white border border-gray-200 rounded"
-                  >
-                    <div
-                      class="w-5 h-5 mr-2 border border-gray-300 rounded flex-shrink-0"
-                      :style="{ backgroundColor: filament.color || '#909399' }"
-                    />
-                    <span class="text-sm text-gray-800">
-                      {{ filament.type || "未知" }} {{ filament.used_g }}g
-                    </span>
-                  </div>
+                    :type="filament.type"
+                    :color="filament.color"
+                    :used-g="filament.used_g"
+                  />
                 </div>
                 <span v-else>无数据</span>
               </el-descriptions-item>
